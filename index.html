@@ -20,7 +20,7 @@
         </ul>
     </header>
 
-    <section class="main-gallery" hidden>
+    <section class="main-gallery">
         <div class="gallery-header flex">
             <input type="search" name="meme-search" id="meme-search">
             <ul class="search-tags flex clean-list">
@@ -29,16 +29,15 @@
                 <li>ccc</li>
             </ul>
         </div>
-        <div class="gallery">
-            <img src="./img/meme-imgs-square/1.jpg" alt="meme-img" onclick="onEditBox()">
-        </div>
+        <div class="gallery flex"></div>
     </section>
 
-    <section class="main-edit-box flex">
+    <section class="main-edit-box flex hidden">
         <!-- canvas -->
         <div class="canvas-container">
-            <canvas class="my-canvas"></canvas>
+            <canvas class="meme-canvas"></canvas>
         </div>
+        <!-- canvas edit tools -->
         <div class="main-edit">
             <input type="text" name="meme-text" id="meme-text">
             <div class="edit-text">
@@ -61,6 +60,7 @@
                 <button class="download">Download</button>
                 <button class="share">Share</button>
             </div>
+            <button class="close-edit" onclick="onCloseEditor()">X</button>
         </div>
     </section>
 
