@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./img/favicon-32x32.png" type="image/x-icon">
+    <title>Meme Gen</title>
+</head>
+
+<body onload="onInit()">
+    <header class="flex">
+        <div class="logo">Meme-gen</div>
+        <ul class="main-nav flex clean-list">
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Memes</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </header>
+
+    <section class="main-gallery" hidden>
+        <div class="gallery-header flex">
+            <input type="search" name="meme-search" id="meme-search">
+            <ul class="search-tags flex clean-list">
+                <li>aaa</li>
+                <li>bbb</li>
+                <li>ccc</li>
+            </ul>
+        </div>
+        <div class="gallery">
+            <img src="./img/meme-imgs-square/1.jpg" alt="meme-img" onclick="onEditBox()">
+        </div>
+    </section>
+
+    <section class="main-edit-box flex">
+        <!-- canvas -->
+        <div class="canvas-container">
+            <canvas class="my-canvas"></canvas>
+        </div>
+        <div class="main-edit">
+            <input type="text" name="meme-text" id="meme-text">
+            <div class="edit-text">
+                <button class="move-text">M</button>
+                <button class="add-text">M</button>
+                <button class="remove-text">M</button>
+            </div>
+            <div class="set-text">
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+                <button class="bigger">A+</button>
+            </div>
+            <div class="main-export">
+                <button class="save">Save</button>
+                <button class="download">Download</button>
+                <button class="share">Share</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="./js/util-services.js"></script>
+    <script src="./js/storage.service.js"></script>
+    <script src="./js/meme-service.js"></script>
+    <script src="./js/meme-controller.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* init css doc */
+
+html {
+    background: #22252c;
+    font-family: impact, mulish, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.canvas-container {
+    /* flex-grow: 1; */
+    width: 50%;
+    margin: 1.25rem;
+}
+
+.main-edit {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    /* flex-grow: 1; */
+}
+
+/* helpers */
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
