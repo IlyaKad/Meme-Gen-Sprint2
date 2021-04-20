@@ -1,5 +1,3 @@
-Phase2 – Basic line operations:
-a. Add the button “increase/decrease” font
-Implement text size increase / decrease
-b. Add “up/down” button
-Implement moving lines up/down
+d. Implement a basic CSS for mobile (both gallery and Editor)
+e. Implement that the Editor is hidden to start with and revealed when an
+image is clicked

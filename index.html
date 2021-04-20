@@ -11,9 +11,17 @@
 </head>
 
 <body onload="onInit()">
-    <header class="flex">
+    <header class="main-header flex">
+        <!-- <div class="inner-header flex"> -->
         <div class="logo">Meme-gen</div>
         <ul class="main-nav flex clean-list">
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Memes</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <!-- </div> -->
+        <button class="hamburger-btn" onclick="toggleMenu()"><img src="./img/cheeseburger.png"></button>
+        <ul class="mobile-nav clean-list hidden">
             <li><a href="#">Gallery</a></li>
             <li><a href="#">Memes</a></li>
             <li><a href="#">About</a></li>
@@ -21,14 +29,14 @@
     </header>
 
     <section class="main-gallery">
-        <div class="gallery-header flex">
+        <!-- <div class="gallery-header flex">
             <input type="search" name="meme-search" id="meme-search">
             <ul class="search-tags flex clean-list">
                 <li>aaa</li>
                 <li>bbb</li>
                 <li>ccc</li>
             </ul>
-        </div>
+        </div> -->
         <div class="gallery flex"></div>
     </section>
 
@@ -39,17 +47,21 @@
         </div>
         <!-- canvas edit tools -->
         <div class="main-edit">
-            <input type="text" name="meme-text" id="meme-text" placeholder="Text Here">
+            <input type="text" class="meme-text" id="meme-text" value="Text Here">
             <div class="edit-text">
-                <button class="change">⮁</button>
-                <button class="add">+</button>
-                <button class="bin fa dumpster">B</button>
+                <button class="change" onclick="onChangeLine()"></button>
+                <button class="add" onclick="onAddLine()"></button>
+                <button class="bin" onclick="onRemoveLine()"></button>
+                <button class="up" onclick="onMoveLine('-20')">up</button>
+                <button class="down" onclick="onMoveLine('20')">down</button>
             </div>
-            <div class="set-text"></div>
+            <div class="set-text">
+
+            </div>
             <div class="main-export">
-                <button class="save">Save</button>
-                <button class="download">Download</button>
-                <button class="share">Share</button>
+                <button class="save" onclick="onSaveMeme()">Save</button>
+                <button class="download" onclick="onDownloadMeme()">Download</button>
+                <button class="share" onclick="onShareMeme()">Share</button>
             </div>
             <button class="close-edit" onclick="onCloseEditor()">X</button>
         </div>
