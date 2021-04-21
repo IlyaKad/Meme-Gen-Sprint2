@@ -132,23 +132,25 @@ function onDownloadMeme(elBtn) {
 
 function drawText(color, size, font, align, txt, x, y, isSelected) {
     let canvas = getCanvasDim();
-    drawRect(x, y, isSelected);
-    gCtx.lineWidth = 2;
+    // drawRect(x, y, isSelected);
+    gCtx.lineWidth = 0.8;
     gCtx.fillStyle = `${color}`;
     gCtx.font = `${size}px ${font}`;
     gCtx.textAlign = `${align}`;
+    gCtx.strokeStyle = (isSelected) ? 'red' : 'rgb(0, 0, 30)';
+    gCtx.strokeText(txt, canvas.width / 2, y);
     gCtx.fillText(txt, canvas.width / 2, y);
 }
 
-function drawRect(x, y, isSelected) {
-    let canvas = getCanvasDim();
-    gCtx.beginPath();
-    gCtx.rect(20, y - 75, canvas.width - 40, 115);
-    gCtx.strokeStyle = (isSelected) ? 'blue' : 'black';
-    gCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    gCtx.fill();
-    gCtx.stroke();
-}
+// function drawRect(x, y, isSelected) {
+//     let canvas = getCanvasDim();
+//     gCtx.beginPath();
+//     gCtx.rect(20, y - 75, canvas.width - 40, 115);
+//     gCtx.strokeStyle = (isSelected) ? 'blue' : 'black';
+//     gCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+//     gCtx.fill();
+//     gCtx.stroke();
+// }
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
@@ -198,10 +200,15 @@ function onGoSavedMemes() {
     document.querySelector('.main-gallery').classList.add('hidden');
     initMeme();
     let memes = getMemes();
-    let strHTML = memes.map(function (meme) {
-        return `
-            <img src="${meme}" alt="meme-img">
-        `
-    })
-    document.querySelector('.saved-memes').innerHTML = strHTML.join('');
+    if (!memes.length) {
+        let strHTML = `<h1 class="no-saved-memes">No saved memes!!!</h1>`;
+        document.querySelector('.saved-memes').innerHTML = strHTML;
+    } else {
+        let strHTML = memes.map(function (meme) {
+            return `
+                <img src="${meme}" alt="meme-img">
+            `
+        })
+        document.querySelector('.saved-memes').innerHTML = strHTML.join('');
+    }
 }

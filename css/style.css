@@ -246,6 +246,10 @@ body.menu-open .mobile-nav {
     margin-left: 16.6rem;
 }
 
+.no-saved-memes {
+    text-align: center;
+}
+
 /* saved memes */
 
 .saved-memes img {
