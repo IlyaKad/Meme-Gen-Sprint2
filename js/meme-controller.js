@@ -19,6 +19,7 @@ function renderGallery() {
 }
 
 function onOpenEditBox(imgIdx) {
+    initMeme();
     updateCurrImg(imgIdx);
     document.querySelector('.main-edit-box').classList.toggle('hidden');
     document.querySelector('.main-gallery').classList.toggle('hidden');
@@ -31,11 +32,9 @@ function onOpenEditBox(imgIdx) {
 }
 
 function renderCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
     let meme = getMeme();
-    let currImg = meme.selectedImgId;
     let lines = meme.lines;
-    addImg(currImg);
+    addImg(meme.selectedImgId);
     lines.forEach((line, idx) => {
         drawText(line.color, line.size, line.font, line.align, line.txt, line.x, line.y, idx === meme.selectedLineIdx);
     });
@@ -45,10 +44,11 @@ function renderEditBtns() {
     let btns = getEditBtns();
     let strHTML = btns.map(function (btn) {
         return `
-        <input type="image" src="./img/edit-buttons/${btn}.png" alt="${btn}" class="${btn}-btn" onclick="onClickEditBtn('${btn}')">
+        <button class="${btn}-btn" onclick="onClickEditBtn('${btn}')">${btn}</button>
         `
     })
     document.querySelector('.set-text').innerHTML = strHTML.join('');
+    // <input type="image" src="./img/edit-buttons/${btn}.png" alt="${btn}" class="${btn}-btn" onclick="onClickEditBtn('${btn}')">
 }
 
 function addImg(imgIdx) {
@@ -67,7 +67,7 @@ function addListeners() {
     // })
 }
 
-function updateTextInput(ev) {
+function onUpdateTextInput(ev) {
     let text = ev.target.value;
     updateText(text);
     renderCanvas();
@@ -97,25 +97,53 @@ function onMoveLine(move) {
 
 function onRemoveLine() {
     removeLine();
+    renderCanvas();
 }
 
 function onCloseEditor() {
     document.querySelector('.main-edit-box').classList.toggle('hidden');
     document.querySelector('.main-gallery').classList.toggle('hidden');
+
+}
+
+function onGoGallery() {
+    document.querySelector('.main-edit-box').classList.add('hidden');
+    document.querySelector('.main-saved-memes').classList.add('hidden');
+    document.querySelector('.main-gallery').classList.remove('hidden');
+}
+
+function onFontChange(ev) {
+    let font = ev.target.value;
+    fontChange(font);
+    renderCanvas();
+}
+
+function onFillChange(ev) {
+    let fill = ev.target.value;
+    fillChange(fill);
+    renderCanvas();
+}
+
+function onDownloadMeme(elBtn) {
+    const data = gElCanvas.toDataURL();
+    elBtn.href = data;
+    elBtn.download = 'Your Meme';
 }
 
 function drawText(color, size, font, align, txt, x, y, isSelected) {
+    let canvas = getCanvasDim();
     drawRect(x, y, isSelected);
     gCtx.lineWidth = 2;
     gCtx.fillStyle = `${color}`;
     gCtx.font = `${size}px ${font}`;
     gCtx.textAlign = `${align}`;
-    gCtx.fillText(txt, x, y);
+    gCtx.fillText(txt, canvas.width / 2, y);
 }
 
 function drawRect(x, y, isSelected) {
+    let canvas = getCanvasDim();
     gCtx.beginPath();
-    gCtx.rect(x - 255, y - 60, 580, 90);
+    gCtx.rect(20, y - 75, canvas.width - 40, 115);
     gCtx.strokeStyle = (isSelected) ? 'blue' : 'black';
     gCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
     gCtx.fill();
@@ -125,7 +153,8 @@ function drawRect(x, y, isSelected) {
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     gElCanvas.width = elContainer.offsetWidth;
-    gElCanvas.height = elContainer.offsetHeight;
+    gElCanvas.height = elContainer.offsetWidth;
+    setCanvasDim(gElCanvas.width, gElCanvas.height);
 }
 
 function addMouseListeners() {
@@ -141,9 +170,38 @@ function addTouchListeners() {
 }
 
 function addInputListeners() {
-    document.querySelector('#meme-text').addEventListener('input', updateTextInput);
+    document.querySelector('#meme-text').addEventListener('input', onUpdateTextInput);
+    // window.addEventListener('resize', () => {
+    //     resizeCanvas();
+    //     renderCanvas();
+    // });
+    // document.querySelector('#meme-search').addEventListener('input', onSearchText);
+}
+
+function onSearchText(ev) {
+    let text = ev.target.value;
+    updateText(text);
 }
 
 function toggleMenu() {
     document.querySelector('.mobile-nav').classList.toggle('hidden');
+}
+
+function onSaveMeme() {
+    const data = gElCanvas.toDataURL();
+    saveMeme(data);
+}
+
+function onGoSavedMemes() {
+    document.querySelector('.main-saved-memes').classList.remove('hidden');
+    document.querySelector('.main-edit-box').classList.add('hidden');
+    document.querySelector('.main-gallery').classList.add('hidden');
+    initMeme();
+    let memes = getMemes();
+    let strHTML = memes.map(function (meme) {
+        return `
+            <img src="${meme}" alt="meme-img">
+        `
+    })
+    document.querySelector('.saved-memes').innerHTML = strHTML.join('');
 }

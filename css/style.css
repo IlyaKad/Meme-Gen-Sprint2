@@ -16,17 +16,29 @@ a {
 
 /* init css doc */
 
+@font-face {
+    font-family: roboto-medium;
+    src: url(../font/Roboto/Roboto-Medium.ttf);
+}
+
 html {
     background: #22252c;
-    font-family: impact, mulish, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: roboto-medium, impact, mulish, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* Header */
 
 .main-header {
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin: auto;
     border-radius: 2rem;
     margin-bottom: 0.5rem;
@@ -37,6 +49,16 @@ html {
     font-size: 2rem;
     line-height: 3rem;
     padding-left: 2rem;
+    cursor: pointer;
+}
+
+.gallery-btn-top {
+    color: rgb(255, 255, 255);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    border: none;
+    transition: background-color 0.4s;
 }
 
 .main-nav a {
@@ -64,12 +86,16 @@ html {
 /* Header - Hamburger */
 
 .hamburger-btn {
+    position: absolute;
+    top: 9px;
+    right: 8px;
     height: 44px;
     width: 44px;
     border: none;
     background-color: transparent;
     margin-right: 1.1rem;
     margin-top: 0.2rem;
+    align-items: flex-end;
 }
 
 .hamburger-btn img {
@@ -78,16 +104,17 @@ html {
 
 .mobile-nav {
     width: 100%;
+    margin: 0.5rem 0rem 0rem 2rem;
 }
 
 .mobile-nav li {
     width: 130px;
     text-align: center;
     margin-right: 1rem;
-    display: none;
+    margin-bottom: 0.5rem;
 }
 
-.mobile-nav li a {
+.mobile-nav a {
     color: rgb(255, 255, 255);
     height: 100%;
     display: inline-block;
@@ -155,72 +182,74 @@ body.menu-open .mobile-nav {
     padding: 1rem;
 }
 
-.canvas-container {
-    width: 38.75rem;
-    height: 38.75rem;
-    margin: 0.8rem;
-}
-
 .main-edit {
     background-color: #22252c;
-    position: relative;
     margin: auto;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 2rem;
 }
 
 .meme-text {
-    border-radius: 1rem;
-    padding: 0.5rem;
+    border-radius: 1.1rem;
+    padding: 0.6rem;
 }
 
-.meme-text, .edit-text, .set-text {
+.edit-text {
+    margin-bottom: 0.5rem;
+}
+
+.edit-text-2>* {
+    cursor: pointer;
+    /* height: 2rem; */
+}
+
+.meme-text, .edit-text-2, .set-text {
     margin-bottom: 1.5rem;
 }
 
-.edit-text>* {
-    margin: 0.2rem;
-}
-
-.set-text>* {
-    margin: 0.2rem;
+.edit-text>*, .set-text>* {
+    cursor: pointer;
+    width: 4rem;
+    height: 2rem;
+    border: 0;
+    padding: 0;
+    font-size: 0.8rem;
+    margin: 0.2rem 0.2rem 0.3rem;
+    border-radius: 0.7rem;
+    box-shadow: 1px 3px 0px 0px #888888;
 }
 
 .main-export>* {
-    margin: 0.2rem;
+    background-color: rgb(239, 239, 239);
+    padding: 6.5px;
+    border-radius: 0.7rem;
+    box-shadow: 1px 3px 0px 0px #888888;
 }
 
-.add-btn {
-    width: 40px;
-}
-
-.edit-text>* {
-    cursor: pointer;
-    width: 3.125rem;
-    height: 3.125rem;
-    border: 0;
-}
-
-.change {
+/* .change {
     background: url('/img/edit-buttons/change.png') no-repeat;
     background-size: 100%;
-}
+} */
 
-.add {
+/* .add {
     background: url('/img/edit-buttons/add.png') no-repeat;
     background-size: 100%;
-}
+} */
 
-.bin {
+/* .bin {
     background: url('/img/edit-buttons/bin.png') no-repeat;
     background-size: 100%;
+} */
+
+.close-btn-div {
+    margin-left: 16.6rem;
 }
 
-.close-edit {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+/* saved memes */
+
+.saved-memes img {
+    width: 300px;
 }
 
 /* helpers */
@@ -230,13 +259,7 @@ body.menu-open .mobile-nav {
 }
 
 .hidden {
-    display: none;
-}
-
-.clean-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    display: none !important;
 }
 
 /* Media Queries */
@@ -251,13 +274,20 @@ body.menu-open .mobile-nav {
     .canvas-container {
         width: 24.66rem;
         height: 24.66rem;
-        margin: 0.8rem;
+        margin: 0.4rem;
     }
     .logo {
         line-height: 3.5rem;
     }
     .hamburger-btn {
         display: none;
+    }
+    .main-edit-box {
+        display: flex;
+    }
+    .main-header {
+        flex-direction: row;
+        align-items: center;
     }
 }
 
@@ -268,20 +298,20 @@ body.menu-open .mobile-nav {
     .canvas-container {
         width: 31.7rem;
         height: 31.7rem;
-        margin: 0.8rem;
+        margin: 0.6rem;
     }
     .logo {
         line-height: 4rem;
     }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1020px) {
     .main-header, .main-gallery, .main-edit-box {
-        max-width: 1050px;
+        max-width: 970px;
     }
     .canvas-container {
-        width: 38.75rem;
-        height: 38.75rem;
+        width: 35rem;
+        height: 35rem;
         margin: 0.8rem;
     }
 }

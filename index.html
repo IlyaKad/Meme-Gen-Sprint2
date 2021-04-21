@@ -13,20 +13,20 @@
 <body onload="onInit()">
     <header class="main-header flex">
         <!-- <div class="inner-header flex"> -->
-        <div class="logo">Meme-gen</div>
+        <div class="logo" onclick="onGoGallery()">Meme-gen</div>
         <ul class="main-nav flex clean-list">
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Memes</a></li>
+            <li><a href="#" onclick="onGoGallery()">Gallery</a></li>
+            <li><a href="#" onclick="onGoSavedMemes()">Memes</a></li>
             <li><a href="#">About</a></li>
         </ul>
         <!-- </div> -->
-        <button class="hamburger-btn" onclick="toggleMenu()"><img src="./img/cheeseburger.png"></button>
         <ul class="mobile-nav clean-list hidden">
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Memes</a></li>
+            <li><a href="#" onclick="onGoGallery()">Gallery</a></li>
+            <li><a href="#" onclick="onGoSavedMemes()">Memes</a></li>
             <li><a href="#">About</a></li>
         </ul>
     </header>
+    <button class="hamburger-btn" onclick="toggleMenu()"><img src="./img/cheeseburger.png"></button>
 
     <section class="main-gallery">
         <!-- <div class="gallery-header flex">
@@ -40,33 +40,46 @@
         <div class="gallery flex"></div>
     </section>
 
-    <section class="main-edit-box flex hidden">
+    <section class="main-edit-box hidden">
         <!-- canvas -->
         <div class="canvas-container">
             <canvas class="meme-canvas"></canvas>
         </div>
         <!-- canvas edit tools -->
         <div class="main-edit">
+            <div class="close-btn-div">
+                <button class="close-edit" onclick="onCloseEditor()">X</button>
+            </div>
             <input type="text" class="meme-text" id="meme-text" value="Text Here">
             <div class="edit-text">
-                <button class="change" onclick="onChangeLine()"></button>
-                <button class="add" onclick="onAddLine()"></button>
-                <button class="bin" onclick="onRemoveLine()"></button>
-                <button class="up" onclick="onMoveLine('-20')">up</button>
-                <button class="down" onclick="onMoveLine('20')">down</button>
+                <button class="change" onclick="onChangeLine()">Switch</button>
+                <button class="add" onclick="onAddLine()">Add</button>
+                <button class="bin" onclick="onRemoveLine()">Remove</button>
+                <button class="up" onclick="onMoveLine('-20')">Up</button>
+                <button class="down" onclick="onMoveLine('20')">Down</button>
             </div>
-            <div class="set-text">
-
+            <div class="edit-text-2">
+                <select name="fonts" id="fonts" oninput="onFontChange(event)">
+                    <option value="impact">impact</option>
+                    <option value="sans-serif">sans-serif</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
+                <input type="color" name="text-color" id="text-color" oninput="onFillChange(event)">
             </div>
+            <div class="set-text"></div>
             <div class="main-export">
-                <button class="save" onclick="onSaveMeme()">Save</button>
-                <button class="download" onclick="onDownloadMeme()">Download</button>
-                <button class="share" onclick="onShareMeme()">Share</button>
+                <a href="#" class="save" onclick="onSaveMeme(this)">Save</a>
+                <a href="#" class="download" onclick="onDownloadMeme(this)" download="asdsad">Download</a>
+                <a href="#" class="share" onclick="onShareMeme()">Share</a>
             </div>
-            <button class="close-edit" onclick="onCloseEditor()">X</button>
         </div>
     </section>
+    <section class="main-gallery main-saved-memes hidden">
+        <div class="saved-memes gallery"></div>
+    </section>
 
+    <script src="./js/upload-service.js"></script>
     <script src="./js/util-services.js"></script>
     <script src="./js/storage.service.js"></script>
     <script src="./js/meme-service.js"></script>
