@@ -13,11 +13,11 @@
 <body onload="onInit()">
     <header class="main-header flex">
         <!-- <div class="inner-header flex"> -->
-        <div class="logo" onclick="onGoGallery()">Meme-gen</div>
+        <div class="logo" onclick="onGoGallery()"><img src="./img/face-meme-6.png">Meme-gen</div>
         <ul class="main-nav flex clean-list">
             <li><a href="#" onclick="onGoGallery()">Gallery</a></li>
             <li><a href="#" onclick="onGoSavedMemes()">Memes</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#" onclick="onGoAbout()">About</a></li>
         </ul>
         <!-- </div> -->
         <ul class="mobile-nav clean-list hidden">
@@ -29,14 +29,14 @@
     <button class="hamburger-btn" onclick="toggleMenu()"><img src="./img/cheeseburger.png"></button>
 
     <section class="main-gallery">
-        <!-- <div class="gallery-header flex">
-            <input type="search" name="meme-search" id="meme-search">
+        <div class="gallery-header flex">
+            <input type="search" class="meme-search" id="meme-search">
             <ul class="search-tags flex clean-list">
                 <li>aaa</li>
                 <li>bbb</li>
                 <li>ccc</li>
             </ul>
-        </div> -->
+        </div>
         <div class="gallery flex"></div>
     </section>
 
@@ -47,38 +47,45 @@
         </div>
         <!-- canvas edit tools -->
         <div class="main-edit">
-            <div class="close-btn-div">
-                <button class="close-edit" onclick="onCloseEditor()">X</button>
-            </div>
             <input type="text" class="meme-text" id="meme-text" value="Text Here">
-            <div class="edit-text">
-                <button class="change" onclick="onChangeLine()">Switch</button>
-                <button class="add" onclick="onAddLine()">Add</button>
-                <button class="bin" onclick="onRemoveLine()">Remove</button>
-                <button class="up" onclick="onMoveLine('-20')">Up</button>
-                <button class="down" onclick="onMoveLine('20')">Down</button>
-            </div>
-            <div class="edit-text-2">
-                <select name="fonts" id="fonts" oninput="onFontChange(event)">
-                    <option value="impact">impact</option>
-                    <option value="sans-serif">sans-serif</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Verdana">Verdana</option>
-                </select>
-                <input type="color" name="text-color" id="text-color" oninput="onFillChange(event)">
-            </div>
-            <div class="set-text"></div>
-            <div class="main-export">
-                <a href="#" class="save" onclick="onSaveMeme(this)">Save</a>
-                <a href="#" class="download" onclick="onDownloadMeme(this)" download="asdsad">Download</a>
-                <a href="#" class="share" onclick="onShareMeme()">Share</a>
-            </div>
+            <button class="close-edit" onclick="onCloseEditor()"><img src="./img/edit-buttons/close2.png"></button>
+            <button class="bigger-btn" onclick="onClickEditBtn('bigger')"><img
+                    src="./img/edit-buttons/bigger.png"></button>
+            <button class="smaller-btn" onclick="onClickEditBtn('smaller')"><img
+                    src="./img/edit-buttons/smaller.png"></button>
+            <button class="text-left-btn" onclick="onClickEditBtn('text-left')"><img
+                    src="./img/edit-buttons/text-left.png"></button>
+            <button class="text-mid-btn" onclick="onClickEditBtn('text-mid')"><img
+                    src="./img/edit-buttons/text-mid.png"></button>
+            <button class="text-right-btn" onclick="onClickEditBtn('text-right')"><img
+                    src="./img/edit-buttons/text-right.png"></button>
+            <img class="color-img" src="./img/edit-buttons/fill.png">
+            <input type="color" class="text-color" id="text-color" oninput="onFillChange(event)">
+            <button class="change" onclick="onChangeLine()"><img src="./img/edit-buttons/change.png"></button>
+            <button class="add" onclick="onAddLine()"><img src="./img/edit-buttons/add.png"></button>
+            <button class="bin" onclick="onRemoveLine()"><img src="./img/edit-buttons/bin.png"></button>
+            <button class="up" onclick="onMoveLine('-20')"><img src="./img/edit-buttons/up.png"></button>
+            <button class="down" onclick="onMoveLine('20')"><img src="./img/edit-buttons/down.png"></button>
+            <select class="fonts" id="fonts" oninput="onFontChange(event)">
+                <option value="impact">impact</option>
+                <option value="sans-serif">sans-serif</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+            <a href="#" class="save" onclick="onSaveMeme(this)"><img src="./img/edit-buttons/save.png"></a>
+            <a href="#" class="download" onclick="onDownloadMeme(this)" download="asdsad"><img
+                    src="./img/edit-buttons/download.png"></a>
+            <a href="#" class="share" onclick="onShareMeme()"><img src="./img/edit-buttons/share.png"></a>
         </div>
     </section>
     <section class="main-gallery main-saved-memes hidden">
         <div class="saved-memes gallery"></div>
     </section>
-    
+    <div class="modal main-gallery hidden">
+        <h1>The feature is, under construction.</h1>
+        <img src="./img/under-construction.jpeg" alt="Under construction">
+    </div>
+
     <script src="./js/upload-service.js"></script>
     <script src="./js/util-services.js"></script>
     <script src="./js/storage.service.js"></script>

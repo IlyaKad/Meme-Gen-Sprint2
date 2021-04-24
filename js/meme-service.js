@@ -79,8 +79,8 @@ function initMeme() {
     }
 }
 
-function updateCurrImg(currImgIdx) {
-    gMeme.selectedImgId = currImgIdx;
+function updateCurrImg(currImgId) {
+    gMeme.selectedImgId = currImgId;
 }
 
 function getImgs() {
@@ -104,11 +104,6 @@ function getCanvasDim() {
 
 function updateText(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text;
-}
-
-function getEditBtns() {
-    const btns = ['bigger', 'smaller', 'text-left', 'text-mid', 'text-right'];
-    return btns;
 }
 
 function editText(action) {

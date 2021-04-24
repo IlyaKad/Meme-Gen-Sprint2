@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    outline: none;
 }
 
 body {
@@ -50,6 +51,10 @@ html {
     line-height: 3rem;
     padding-left: 2rem;
     cursor: pointer;
+}
+
+.logo img {
+    margin-bottom: -5px;
 }
 
 .gallery-btn-top {
@@ -162,7 +167,7 @@ body.menu-open .mobile-nav {
 
 .gallery img {
     width: 140px;
-    margin: 0.5rem;
+    margin: 0.3rem;
     border-radius: 5%;
     cursor: pointer;
     opacity: 0.8;
@@ -171,6 +176,13 @@ body.menu-open .mobile-nav {
 
 .gallery img:hover {
     opacity: 1;
+}
+
+.meme-search {
+    align-self: center;
+    height: 35px;
+    border-radius: 20px;
+    padding-left: 10px;
 }
 
 /* meme edit box */
@@ -183,32 +195,141 @@ body.menu-open .mobile-nav {
 }
 
 .main-edit {
+    display: grid;
     background-color: #22252c;
     margin: auto;
     text-align: center;
     padding: 1rem;
     border-radius: 2rem;
+    /* grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas: ". txt txt txt close ." "change add-btn up down bin ." "bigger-btn smaller-btn txt-l txt-mid txt-r ." ". fonts fonts colors-img . ." ". . . . . ." ". share download save . ."; */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        "txt txt close . . ."
+        "change add-btn bin . . ."
+        "up down bigger-btn . . ."
+        "colors-img fonts smaller-btn . . ."
+        "txt-l txt-mid txt-r . . ."
+        "share download save . . .";
+}
+
+.meme-canvas {
+    border-radius: 15px;
+}
+
+.color-img {
+    grid-area: colors-img;
+}
+
+.fonts {
+    grid-area: fonts;
+}
+
+.text-right-btn {
+    grid-area: txt-r;
+}
+
+.text-mid-btn {
+    grid-area: txt-mid;
+}
+
+.text-left-btn {
+    grid-area: txt-l;
+}
+
+.smaller-btn {
+    grid-area: smaller-btn;
+}
+
+.bigger-btn {
+    grid-area: bigger-btn;
 }
 
 .meme-text {
-    border-radius: 1.1rem;
-    padding: 0.6rem;
+    grid-area: txt;
 }
 
-.edit-text {
-    margin-bottom: 0.5rem;
+.share {
+    grid-area: share;
 }
 
-.edit-text-2>* {
-    cursor: pointer;
-    /* height: 2rem; */
+.download {
+    grid-area: download;
 }
 
-.meme-text, .edit-text-2, .set-text {
-    margin-bottom: 1.5rem;
+.save {
+    grid-area: save;
 }
 
-.edit-text>*, .set-text>* {
+.close-edit {
+    grid-area: close;
+}
+
+.change {
+    grid-area: change;
+}
+
+.color {
+    grid-area: colors;
+}
+
+.add {
+    grid-area: add-btn;
+}
+
+.bin {
+    grid-area: bin;
+}
+
+.up {
+    grid-area: up;
+}
+
+.down {
+    grid-area: down;
+}
+
+.color-img {
+    place-self: center;
+}
+
+.fonts {
+    align-self: center;
+    border-radius: 12px;
+    height: 52px;
+    box-shadow: 0px 3px 0px 0px #424447;
+    margin-bottom: 4px;
+}
+
+.meme-text {
+    align-self: center;
+    height: 45px;
+    border-radius: 22px;
+    padding-left: 10px;
+}
+
+.text-color {
+    position: absolute;
+    transform: translate(213px, 190px);
+    opacity: 0;
+    width: 59px;
+    height: 59px;
+    z-index: 1;
+}
+
+.close-edit {
+    justify-self: end;
+    align-self: start;
+    margin: 8px 5px 0px 0px;
+}
+
+.main-edit>*:not(.fonts, .meme-text) {
+    border: none;
+    background: transparent;
+}
+
+/* .edit-text>*{
     cursor: pointer;
     width: 4rem;
     height: 2rem;
@@ -218,33 +339,7 @@ body.menu-open .mobile-nav {
     margin: 0.2rem 0.2rem 0.3rem;
     border-radius: 0.7rem;
     box-shadow: 1px 3px 0px 0px #888888;
-}
-
-.main-export>* {
-    background-color: rgb(239, 239, 239);
-    padding: 6.5px;
-    border-radius: 0.7rem;
-    box-shadow: 1px 3px 0px 0px #888888;
-}
-
-/* .change {
-    background: url('/img/edit-buttons/change.png') no-repeat;
-    background-size: 100%;
 } */
-
-/* .add {
-    background: url('/img/edit-buttons/add.png') no-repeat;
-    background-size: 100%;
-} */
-
-/* .bin {
-    background: url('/img/edit-buttons/bin.png') no-repeat;
-    background-size: 100%;
-} */
-
-.close-btn-div {
-    margin-left: 16.6rem;
-}
 
 .no-saved-memes {
     text-align: center;
@@ -254,6 +349,33 @@ body.menu-open .mobile-nav {
 
 .saved-memes img {
     width: 300px;
+}
+
+/* about modal */
+
+.modal {
+    position: relative;
+    text-align: center;
+}
+
+.modal img {
+    width: 95%;
+    border-radius: 20px;
+    display: block;
+    margin: auto;
+}
+
+.modal h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 30);
+    font-size: 2.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(169, 169, 218);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* helpers */
@@ -269,7 +391,7 @@ body.menu-open .mobile-nav {
 /* Media Queries */
 
 @media (min-width: 710px) {
-    .main-header, .main-gallery, .main-edit-box {
+    .main-header, .main-gallery, .main-edit-box, .modal {
         max-width: 660px;
     }
     .main-nav li {
@@ -293,29 +415,63 @@ body.menu-open .mobile-nav {
         flex-direction: row;
         align-items: center;
     }
+    .main-edit {
+        width: 45%;
+        padding: 1rem 0rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "txt txt close . . ." "change add-btn bin . . ." "up down bigger-btn . . ." "colors-img fonts smaller-btn . . ." "txt-l txt-mid txt-r . . ." "share download save . . .";
+    }
+    .meme-text {
+        margin: 0px -14px 4px 13px;
+    }
+    .close-edit {
+        margin: 0px 9px 0px 0px;
+    }
+    .text-color {
+        transform: translate(13px, 190px);
+    }
+    .gallery img {
+        margin: 0.5rem;
+    }
 }
 
 @media (min-width: 870px) {
-    .main-header, .main-gallery, .main-edit-box {
+    .main-header, .main-gallery, .main-edit-box, .modal {
         max-width: 820px;
     }
     .canvas-container {
-        width: 31.7rem;
-        height: 31.7rem;
+        width: 25rem;
+        height: 25rem;
         margin: 0.6rem;
     }
     .logo {
         line-height: 4rem;
     }
+    .main-edit {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas: ". txt txt txt close ." "change add-btn up down bin ." "bigger-btn smaller-btn txt-l txt-mid txt-r ." ". fonts fonts colors-img . ." ". . . . . ." ". share download save . .";
+    }
+    .text-color {
+        transform: translate(218px, 190px);
+    }
 }
 
 @media (min-width: 1020px) {
-    .main-header, .main-gallery, .main-edit-box {
+    .main-header, .main-gallery, .main-edit-box, .modal {
         max-width: 970px;
     }
     .canvas-container {
         width: 35rem;
         height: 35rem;
         margin: 0.8rem;
+    }
+    .main-edit {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas: ". txt txt txt close ." "change add-btn up down bin ." "bigger-btn smaller-btn txt-l txt-mid txt-r ." ". fonts fonts colors-img . ." ". . . . . ." ". share download save . .";
+    }
+    .text-color {
+        transform: translate(245px, 190px);
     }
 }

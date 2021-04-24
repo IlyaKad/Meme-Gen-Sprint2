@@ -5,6 +5,8 @@ var gElCanvas;
 var gCtx;
 
 function onInit() {
+    gElCanvas = document.querySelector('.meme-canvas');
+    gCtx = gElCanvas.getContext('2d');
     renderGallery();
 }
 
@@ -23,11 +25,8 @@ function onOpenEditBox(imgIdx) {
     updateCurrImg(imgIdx);
     document.querySelector('.main-edit-box').classList.toggle('hidden');
     document.querySelector('.main-gallery').classList.toggle('hidden');
-    gElCanvas = document.querySelector('.meme-canvas');
-    gCtx = gElCanvas.getContext('2d');
     resizeCanvas();
     renderCanvas();
-    renderEditBtns();
     addListeners();
 }
 
@@ -40,17 +39,6 @@ function renderCanvas() {
     });
 }
 
-function renderEditBtns() {
-    let btns = getEditBtns();
-    let strHTML = btns.map(function (btn) {
-        return `
-        <button class="${btn}-btn" onclick="onClickEditBtn('${btn}')">${btn}</button>
-        `
-    })
-    document.querySelector('.set-text').innerHTML = strHTML.join('');
-    // <input type="image" src="./img/edit-buttons/${btn}.png" alt="${btn}" class="${btn}-btn" onclick="onClickEditBtn('${btn}')">
-}
-
 function addImg(imgIdx) {
     const elImg = new Image();
     elImg.src = `./img/meme-imgs-square/${imgIdx}.jpg`;
@@ -61,10 +49,10 @@ function addListeners() {
     addInputListeners();
     // addMouseListeners();
     // addTouchListeners();
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas();
-    //     renderCanvas();
-    // })
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        renderCanvas();
+    })
 }
 
 function onUpdateTextInput(ev) {
@@ -98,18 +86,6 @@ function onMoveLine(move) {
 function onRemoveLine() {
     removeLine();
     renderCanvas();
-}
-
-function onCloseEditor() {
-    document.querySelector('.main-edit-box').classList.toggle('hidden');
-    document.querySelector('.main-gallery').classList.toggle('hidden');
-
-}
-
-function onGoGallery() {
-    document.querySelector('.main-edit-box').classList.add('hidden');
-    document.querySelector('.main-saved-memes').classList.add('hidden');
-    document.querySelector('.main-gallery').classList.remove('hidden');
 }
 
 function onFontChange(ev) {
@@ -185,10 +161,6 @@ function onSearchText(ev) {
     updateText(text);
 }
 
-function toggleMenu() {
-    document.querySelector('.mobile-nav').classList.toggle('hidden');
-}
-
 function onSaveMeme() {
     const data = gElCanvas.toDataURL();
     saveMeme(data);
@@ -198,6 +170,7 @@ function onGoSavedMemes() {
     document.querySelector('.main-saved-memes').classList.remove('hidden');
     document.querySelector('.main-edit-box').classList.add('hidden');
     document.querySelector('.main-gallery').classList.add('hidden');
+    document.querySelector('.modal').classList.add('hidden');
     initMeme();
     let memes = getMemes();
     if (!memes.length) {
@@ -206,9 +179,32 @@ function onGoSavedMemes() {
     } else {
         let strHTML = memes.map(function (meme) {
             return `
-                <img src="${meme}" alt="meme-img">
+            <img src="${meme}" alt="meme-img">
             `
         })
         document.querySelector('.saved-memes').innerHTML = strHTML.join('');
     }
+}
+
+function onGoAbout() {
+    document.querySelector('.modal').classList.remove('hidden');
+    document.querySelector('.main-saved-memes').classList.add('hidden');
+    document.querySelector('.main-edit-box').classList.add('hidden');
+    document.querySelector('.main-gallery').classList.add('hidden');
+}
+
+function onGoGallery() {
+    document.querySelector('.main-edit-box').classList.add('hidden');
+    document.querySelector('.main-saved-memes').classList.add('hidden');
+    document.querySelector('.main-gallery').classList.remove('hidden');
+    document.querySelector('.modal').classList.add('hidden');
+}
+
+function toggleMenu() {
+    document.querySelector('.mobile-nav').classList.toggle('hidden');
+}
+
+function onCloseEditor() {
+    document.querySelector('.main-edit-box').classList.toggle('hidden');
+    document.querySelector('.main-gallery').classList.toggle('hidden');
 }
