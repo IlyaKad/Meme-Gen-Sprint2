@@ -20,16 +20,6 @@ function renderGallery() {
     document.querySelector('.gallery').innerHTML = strHTML.join('');
 }
 
-function onOpenEditBox(imgIdx) {
-    initMeme();
-    updateCurrImg(imgIdx);
-    document.querySelector('.main-edit-box').classList.toggle('hidden');
-    document.querySelector('.main-gallery').classList.toggle('hidden');
-    resizeCanvas();
-    renderCanvas();
-    addListeners();
-}
-
 function renderCanvas() {
     let meme = getMeme();
     let lines = meme.lines;
@@ -45,6 +35,27 @@ function addImg(imgIdx) {
     gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height);
 }
 
+function onOpenEditBox(imgIdx) {
+    initMeme();
+    updateCurrImg(imgIdx);
+    document.querySelector('.main-edit-box').classList.toggle('hidden');
+    document.querySelector('.main-gallery').classList.toggle('hidden');
+    resizeCanvas();
+    renderCanvas();
+    addListeners();
+}
+
+function drawText(color, size, font, align, txt, x, y, isSelected) {
+    // drawRect(x, y, isSelected);
+    gCtx.lineWidth = 0.8;
+    gCtx.fillStyle = `${color}`;
+    gCtx.font = `${size}px ${font}`;
+    gCtx.textAlign = `${align}`;
+    gCtx.strokeStyle = (isSelected) ? 'red' : `${color}`;
+    gCtx.strokeText(txt, gElCanvas.width / 2, y);
+    gCtx.fillText(txt, gElCanvas.width / 2, y);
+}
+
 function addListeners() {
     addInputListeners();
     // addMouseListeners();
@@ -53,6 +64,12 @@ function addListeners() {
         resizeCanvas();
         renderCanvas();
     })
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    gElCanvas.width = elContainer.offsetWidth;
+    gElCanvas.height = elContainer.offsetWidth;
 }
 
 function onUpdateTextInput(ev) {
@@ -101,39 +118,27 @@ function onFillChange(ev) {
 }
 
 function onDownloadMeme(elBtn) {
+    let meme = getMeme();
+    let lines = meme.lines;
+    addImg(meme.selectedImgId);
+    lines.forEach((line, idx) => {
+        drawText(line.color, line.size, line.font, line.align, line.txt, line.x, line.y, false);
+    });
     const data = gElCanvas.toDataURL();
+    renderCanvas();
     elBtn.href = data;
     elBtn.download = 'Your Meme';
-}
-
-function drawText(color, size, font, align, txt, x, y, isSelected) {
-    let canvas = getCanvasDim();
-    // drawRect(x, y, isSelected);
-    gCtx.lineWidth = 0.8;
-    gCtx.fillStyle = `${color}`;
-    gCtx.font = `${size}px ${font}`;
-    gCtx.textAlign = `${align}`;
-    gCtx.strokeStyle = (isSelected) ? 'red' : 'rgb(0, 0, 30)';
-    gCtx.strokeText(txt, canvas.width / 2, y);
-    gCtx.fillText(txt, canvas.width / 2, y);
 }
 
 // function drawRect(x, y, isSelected) {
 //     let canvas = getCanvasDim();
 //     gCtx.beginPath();
-//     gCtx.rect(20, y - 75, canvas.width - 40, 115);
+//     gCtx.rect(20, y - 75, gElCanvas.width - 40, 115);
 //     gCtx.strokeStyle = (isSelected) ? 'blue' : 'black';
 //     gCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
 //     gCtx.fill();
 //     gCtx.stroke();
 // }
-
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container');
-    gElCanvas.width = elContainer.offsetWidth;
-    gElCanvas.height = elContainer.offsetWidth;
-    setCanvasDim(gElCanvas.width, gElCanvas.height);
-}
 
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
@@ -149,19 +154,17 @@ function addTouchListeners() {
 
 function addInputListeners() {
     document.querySelector('#meme-text').addEventListener('input', onUpdateTextInput);
-    // window.addEventListener('resize', () => {
-    //     resizeCanvas();
-    //     renderCanvas();
-    // });
     // document.querySelector('#meme-search').addEventListener('input', onSearchText);
 }
 
-function onSearchText(ev) {
-    let text = ev.target.value;
-    updateText(text);
-}
+// function onSearchText(ev) {
+//     let text = ev.target.value;
+//     updateText(text);
+// }
 
 function onSaveMeme() {
+    document.querySelector('.modal-saved').classList.remove('hidden');
+    setTimeout(function () {document.querySelector('.modal-saved').classList.add('hidden')}, 750)
     const data = gElCanvas.toDataURL();
     saveMeme(data);
 }
@@ -177,16 +180,36 @@ function onGoSavedMemes() {
         let strHTML = `<h1 class="no-saved-memes">No saved memes!!!</h1>`;
         document.querySelector('.saved-memes').innerHTML = strHTML;
     } else {
+        let i = 0;
         let strHTML = memes.map(function (meme) {
             return `
-            <img src="${meme}" alt="meme-img">
+            <img src="${meme.url}" alt="meme-img" onclick="onOpenEditBoxFromSave(${i++})">
             `
         })
         document.querySelector('.saved-memes').innerHTML = strHTML.join('');
     }
 }
 
+function onOpenEditBoxFromSave(savedIdx) {
+    // initMeme();
+    let memes = getSavedMeme();
+    updateCurrImg(memes[savedIdx].imgIdx);
+    document.querySelector('.main-saved-memes').classList.add('hidden');
+    document.querySelector('.main-edit-box').classList.remove('hidden');
+    resizeCanvas();
+    let meme = memes[savedIdx];
+    let lines = meme.lines;
+    addImg(meme.selectedImgId);
+    lines.forEach((line, idx) => {
+        drawText(line.color, line.size, line.font, line.align, line.txt, line.x, line.y, idx === meme.selectedLineIdx);
+    });
+    addListeners();
+}
+
 function onGoAbout() {
+    let strHTML = `<h1>The feature is, under construction.</h1>
+    <img src="./img/under-construction.jpeg" alt="Under construction">`;
+    document.querySelector('.modal').innerHTML = strHTML;
     document.querySelector('.modal').classList.remove('hidden');
     document.querySelector('.main-saved-memes').classList.add('hidden');
     document.querySelector('.main-edit-box').classList.add('hidden');

@@ -23,24 +23,27 @@
         <ul class="mobile-nav clean-list hidden">
             <li><a href="#" onclick="onGoGallery()">Gallery</a></li>
             <li><a href="#" onclick="onGoSavedMemes()">Memes</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#" onclick="onGoAbout()">About</a></li>
         </ul>
     </header>
     <button class="hamburger-btn" onclick="toggleMenu()"><img src="./img/cheeseburger.png"></button>
 
     <section class="main-gallery">
-        <div class="gallery-header flex">
+        <!-- <div class="gallery-header flex">
             <input type="search" class="meme-search" id="meme-search">
             <ul class="search-tags flex clean-list">
                 <li>aaa</li>
                 <li>bbb</li>
                 <li>ccc</li>
             </ul>
-        </div>
+        </div> -->
         <div class="gallery flex"></div>
     </section>
 
     <section class="main-edit-box hidden">
+        <div class="modal-saved hidden">
+            <h1>Saved</h1>
+        </div>
         <!-- canvas -->
         <div class="canvas-container">
             <canvas class="meme-canvas"></canvas>
@@ -81,10 +84,7 @@
     <section class="main-gallery main-saved-memes hidden">
         <div class="saved-memes gallery"></div>
     </section>
-    <div class="modal main-gallery hidden">
-        <h1>The feature is, under construction.</h1>
-        <img src="./img/under-construction.jpeg" alt="Under construction">
-    </div>
+    <div class="modal main-gallery hidden"></div>
 
     <script src="./js/upload-service.js"></script>
     <script src="./js/util-services.js"></script>

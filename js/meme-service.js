@@ -63,8 +63,7 @@ function initMeme() {
     gMeme = {
         selectedImgId: 0,
         selectedLineIdx: 0,
-        canvasWidth: 0,
-        canvasHeight: 0,
+        url: '',
         lines: [
             {
                 color: 'rgb(0, 0, 30)',
@@ -79,6 +78,11 @@ function initMeme() {
     }
 }
 
+function getSavedMeme() {
+    gMemes = loadFromStorage(STORAGE_KEY);
+    return gMemes;
+}
+
 function updateCurrImg(currImgId) {
     gMeme.selectedImgId = currImgId;
 }
@@ -89,17 +93,6 @@ function getImgs() {
 
 function getMeme() {
     return gMeme;
-}
-
-function setCanvasDim(canvasWidth, canvasHeight) {
-    gMeme.canvasWidth = canvasWidth;
-    gMeme.canvasHeight = canvasHeight;
-}
-
-function getCanvasDim() {
-    let width = gMeme.canvasWidth;
-    let height = gMeme.canvasHeight;
-    return { width, height };
 }
 
 function updateText(text) {
@@ -169,7 +162,8 @@ function removeLine() {
 }
 
 function saveMeme(meme) {
-    gMemes.push(meme);
+    gMeme.url = meme;
+    gMemes.push(gMeme);
     saveToStorage(STORAGE_KEY, gMemes);
 }
 

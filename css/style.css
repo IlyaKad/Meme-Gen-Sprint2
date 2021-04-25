@@ -327,6 +327,7 @@ body.menu-open .mobile-nav {
 .main-edit>*:not(.fonts, .meme-text) {
     border: none;
     background: transparent;
+    cursor: pointer;
 }
 
 /* .edit-text>*{
@@ -343,6 +344,21 @@ body.menu-open .mobile-nav {
 
 .no-saved-memes {
     text-align: center;
+}
+
+.modal-saved {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);;
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.modal-saved h1 {
+    font-size: 3rem;
+    color: whitesmoke;
 }
 
 /* saved memes */
